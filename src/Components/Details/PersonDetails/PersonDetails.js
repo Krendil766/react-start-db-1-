@@ -7,7 +7,6 @@ export default class PersonDetails extends Component {
     swapi = new SwapiServices();
     state = {
         person: null || {},
-        loading: false,
     }
     componentDidMount() {
         this.updatePerson();
@@ -15,7 +14,6 @@ export default class PersonDetails extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.personId !== prevProps.personId) {
             this.updatePerson();
-            this.setState({ loading: true })
         }
     }
     updatePerson = () => {
@@ -29,12 +27,7 @@ export default class PersonDetails extends Component {
             });
     }
     render() {
-        console.log(this.state.person);
-
         const { id, name, gender, birthYear, eyeColor } = this.state.person;
-        if (this.state.loading) {
-            return <Spinner />
-        }
         return (
             <div className="person-details card">
                 <img className="person-image"

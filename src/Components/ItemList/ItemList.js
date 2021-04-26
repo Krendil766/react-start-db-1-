@@ -16,9 +16,6 @@ export default class ItemList extends Component {
             })
         })
     }
-    componentDidUpdate() {
-        this.onRenderItems
-    }
     onRenderItems = (arr) => {
         return arr.map(({ id, name }) => {
             return (
