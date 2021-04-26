@@ -1,21 +1,25 @@
 import { Component } from "react";
 import Header from "../Header/Header.js";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
-import ItemList from "../ItemList/ItemList";
-import PersonDetails from "../Details/PersonDetails/PersonDetails";
 import PeoplePage from "../PeoplePage/PeoplePage";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
-import ErrorButton from "../ErrorButton/ErrorButton.js";
+import SwapiServices from "../../services/SwapiServices";
 
 import "./App.css";
+
 export default class App extends Component {
+  swapi = new SwapiServices();
   state = {
     hasError: false,
+    selectedId: 5,
   };
   componentDidCatch() {
     console.log("err");
     this.setState({ hasError: true });
   }
+  onPersonSelected = (id) => {
+    this.setState({ selectedId: id });
+  };
   render() {
     if (this.state.hasError) {
       return <ErrorIndicator />;
@@ -25,7 +29,6 @@ export default class App extends Component {
         <Header />
         <RandomPlanet />
         <PeoplePage />
-        <ErrorButton />
       </div>
     );
   }

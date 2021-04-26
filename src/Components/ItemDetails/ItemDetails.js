@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import './PersonDetails.css';
-import SwapiServices from '../../../services/SwapiServices';
-import Spinner from '../../Spinner/Spinner';
+import '././ItemDetails.css';
+import SwapiServices from '../../services/SwapiServices';
+import Spinner from '../Spinner/Spinner';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
     swapi = new SwapiServices();
     state = {
         person: null || {},
+        img:null||''
     }
     componentDidMount() {
         this.updatePerson();
@@ -17,13 +18,13 @@ export default class PersonDetails extends Component {
         }
     }
     updatePerson = () => {
-        const { personId } = this.props;
+        const { personId, getData, getImgUrl } = this.props;
         if (!personId) {
             return;
         }
-        this.swapi.getPerson(personId)
+        getData(personId)
             .then(person => {
-                this.setState({ person })
+                this.setState({ person, img:getImgUrl(person) })
             });
     }
     render() {
@@ -31,7 +32,7 @@ export default class PersonDetails extends Component {
         return (
             <div className="person-details card">
                 <img className="person-image"
-                    src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                    src={this.state.img} />
                 <div className="card-body">
                     <h4>{name}</h4>
                     <ul className="list-group list-group-flush">
