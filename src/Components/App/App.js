@@ -6,6 +6,16 @@ import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
 import SwapiServices from "../../services/SwapiServices";
 
 import "./App.css";
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+} from "../sw-components/ItemList.js";
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+} from "../sw-components/Details";
 
 export default class App extends Component {
   swapi = new SwapiServices();
@@ -28,7 +38,12 @@ export default class App extends Component {
       <div>
         <Header />
         <RandomPlanet />
-        <PeoplePage />
+        <PersonList />
+        <PlanetList />
+        <StarshipList />
+        <PersonDetails itemId={this.state.selectedId} />
+        <PlanetDetails itemId={this.state.selectedId} />
+        <StarshipDetails itemId={12} />
       </div>
     );
   }
