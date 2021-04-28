@@ -1,9 +1,9 @@
 import { Component } from "react";
 import Header from "../Header/Header.js";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
-import PeoplePage from "../PeoplePage/PeoplePage";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
 import SwapiServices from "../../services/SwapiServices";
+import {SwapiServicesConsumer, SwapiServicesProvider} from '../SwapiServicesContext/SwapiServicesContext';
 
 import "./App.css";
 import {
@@ -36,6 +36,7 @@ export default class App extends Component {
     }
     return (
       <div>
+        <SwapiServicesProvider value = {this.swapi}>
         <Header />
         <RandomPlanet />
         <PersonList />
@@ -44,6 +45,7 @@ export default class App extends Component {
         <PersonDetails itemId={this.state.selectedId} />
         <PlanetDetails itemId={this.state.selectedId} />
         <StarshipDetails itemId={12} />
+        </SwapiServicesProvider>
       </div>
     );
   }
