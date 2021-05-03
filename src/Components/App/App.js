@@ -3,7 +3,7 @@ import Header from "../Header/Header.js";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
 import SwapiServices from "../../services/SwapiServices";
-import {SwapiServicesConsumer, SwapiServicesProvider} from '../SwapiServicesContext/SwapiServicesContext';
+import {SwapiServicesProvider} from '../SwapiServicesContext/SwapiServicesContext';
 
 import "./App.css";
 import {
@@ -15,7 +15,7 @@ import {
   PersonDetails,
   PlanetDetails,
   StarshipDetails,
-} from "../sw-components/Details";
+} from "../sw-components";
 
 export default class App extends Component {
   swapi = new SwapiServices();

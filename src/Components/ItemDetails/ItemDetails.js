@@ -33,8 +33,6 @@ export default class ItemDetails extends Component {
     const { personId, getData, getImgUrl } = this.props;
     
     if (!personId) {
-        console.log(2);
-        
       return;
     }
     getData(personId).then((item) => {

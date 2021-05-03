@@ -3,14 +3,14 @@ import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 import Spinner from '../Spinner/Spinner';
 
 
-export const WithData = (View, getData) => {
+export const WithData = (View) => {
     return class extends Component {
       state = {
         data: null || [],
         error: "",
       };
       componentDidMount() {
-        getData().then((data) => {
+        this.props.getData().then((data) => {
           this.setState({
             data,
           });
