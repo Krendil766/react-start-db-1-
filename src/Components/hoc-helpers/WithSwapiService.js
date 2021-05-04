@@ -1,17 +1,20 @@
 import React from "react";
 import { SwapiServicesConsumer } from "../SwapiServicesContext/SwapiServicesContext";
 
-export const WithSwapiService = (Component, fn) => {
+export const WithSwapiService = (Component, mapMethodsToProps) => {
   return (props) => {
     return (
       <SwapiServicesConsumer>
-        {(swapi) => {
-          const serviceProps = fn(swapi);
-          console.log(serviceProps);
-          
-          return <Component {...props} {...serviceProps} />;
-        }}
+        {
+          (swapiService) => {
+            const serviceProps = mapMethodsToProps(swapiService);
+
+            return (
+              <Component {...props} {...serviceProps} />
+            );
+          }
+        }
       </SwapiServicesConsumer>
     );
-  };
+  }
 };

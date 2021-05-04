@@ -9,12 +9,20 @@ export const WithData = (View) => {
         data: null || [],
         error: "",
       };
-      componentDidMount() {
+      update(){
         this.props.getData().then((data) => {
           this.setState({
             data,
           });
         });
+      }
+      componentDidMount() {
+        this.update();
+      }
+      componentDidUpdate(prevProps){
+        if(this.props.getData!==prevProps.getData){
+          this.update();
+        }
       }
       componentDidCatch(){
           this.setState({error:true})

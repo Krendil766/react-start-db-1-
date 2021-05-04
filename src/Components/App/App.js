@@ -3,7 +3,8 @@ import Header from "../Header/Header.js";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
 import SwapiServices from "../../services/SwapiServices";
-import {SwapiServicesProvider} from '../SwapiServicesContext/SwapiServicesContext';
+import { SwapiServicesProvider } from "../SwapiServicesContext/SwapiServicesContext";
+import Row from "../Row/Row";
 
 import "./App.css";
 import {
@@ -36,15 +37,18 @@ export default class App extends Component {
     }
     return (
       <div>
-        <SwapiServicesProvider value = {this.swapi}>
-        <Header />
-        <RandomPlanet />
-        <PersonList />
-        <PlanetList />
+        <SwapiServicesProvider value={this.swapi}>
+          <Header />
+          <RandomPlanet />
+          <Row
+            left={<PersonList />}
+            right={<PersonDetails itemId={this.state.selectedId} />}
+          />
+
+          {/* <PlanetList />
         <StarshipList />
-        <PersonDetails itemId={this.state.selectedId} />
         <PlanetDetails itemId={this.state.selectedId} />
-        <StarshipDetails itemId={12} />
+        <StarshipDetails itemId={12} /> */}
         </SwapiServicesProvider>
       </div>
     );
