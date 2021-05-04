@@ -1,56 +1,48 @@
-import { Component } from "react";
-import Header from "../Header/Header.js";
-import RandomPlanet from "../RandomPlanet/RandomPlanet";
-import ErrorIndicator from "../ErrorIndicator/ErrorIndicator.js";
-import SwapiServices from "../../services/SwapiServices";
-import { SwapiServicesProvider } from "../SwapiServicesContext/SwapiServicesContext";
-import Row from "../Row/Row";
+import React, { Component } from 'react';
 
-import "./App.css";
-import {
-  PersonList,
-  PlanetList,
-  StarshipList,
-} from "../sw-components/ItemList.js";
-import {
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails,
-} from "../sw-components";
+import Header from '../header';
+import RandomPlanet from '../random-planet';
+import ErrorBoundry from '../error-boundry';
+import SwapiService from '../../services/swapi-service';
+import DummySwapiService from '../../services/dummy-swapi-service';
+
+import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
+import { SwapiServiceProvider } from '../swapi-service-context';
+
+import './app.css';
 
 export default class App extends Component {
-  swapi = new SwapiServices();
-  state = {
-    hasError: false,
-    selectedId: 5,
-  };
-  componentDidCatch() {
-    console.log("err");
-    this.setState({ hasError: true });
-  }
-  onPersonSelected = (id) => {
-    this.setState({ selectedId: id });
-  };
-  render() {
-    if (this.state.hasError) {
-      return <ErrorIndicator />;
-    }
-    return (
-      <div>
-        <SwapiServicesProvider value={this.swapi}>
-          <Header />
-          <RandomPlanet />
-          <Row
-            left={<PersonList />}
-            right={<PersonDetails itemId={this.state.selectedId} />}
-          />
 
-          {/* <PlanetList />
-        <StarshipList />
-        <PlanetDetails itemId={this.state.selectedId} />
-        <StarshipDetails itemId={12} /> */}
-        </SwapiServicesProvider>
-      </div>
+  state = {
+    swapiService: new SwapiService()
+  };
+
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => {
+      const Service = swapiService instanceof SwapiService ?
+                        DummySwapiService : SwapiService;
+      return {
+        swapiService: new Service()
+      };
+    });
+  };
+
+  render() {
+
+    return (
+      <ErrorBoundry>
+        <SwapiServiceProvider value={this.state.swapiService} >
+          <div className="stardb-app">
+            <Header onServiceChange={this.onServiceChange} />
+
+            <RandomPlanet />
+            <PeoplePage />
+            <PlanetsPage />
+            <StarshipsPage />
+
+          </div>
+        </SwapiServiceProvider>
+      </ErrorBoundry>
     );
   }
 }
